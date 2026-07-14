@@ -1,6 +1,5 @@
-/* styles.css — extracted from index.html and enhanced with Caviar Dreams @font-face + logo variations */
+/* styles.css — update: make sides go to black instead of gray when scrolling */
 
-/* NOTE: Add font files to /fonts/ (CaviarDreams.woff2 / .woff). The @font-face below expects them there. If you want me to add font files, upload them or confirm you want me to add licensed files. */
 @font-face {
   font-family: 'Caviar Dreams';
   src: url('/fonts/CaviarDreams.woff2') format('woff2'),
@@ -25,6 +24,11 @@ body{
   background:#ffffff;
   transition:background-color var(--transition-medium) ease, color var(--transition-medium) ease;
 }
+
+/* When scrolled, switch to solid black background (sides shouldn't be gray) */
+body.scroll-dark{ background:#000000; color:#eaeaea }
+/* keep scroll-light for white state */
+body.scroll-light{ background:#ffffff; color:#2c2c2c }
 
 /* Logo (handwriting) — white text with charcoal shadow + spacing + subtle pop */
 header h1.logo{
@@ -71,11 +75,6 @@ header h1.logo::after{
   background-image: radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px);
   background-size: 6px 6px;
 }
-
-/* Make sure header remains readable */
-body.scroll-dark{ background:#1a1a1a; color:#eaeaea }
-body.scroll-light{ background:#ffffff; color:#2c2c2c }
-body.scroll-gray{ background:#2d2d2d; color:#eaeaea }
 
 header{
   padding:5rem 2rem;
