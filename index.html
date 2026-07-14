@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SquigglyNote</title>
+
+    <!-- Handwriting font for the logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <!-- NOTE: Caviar Dreams is not available on Google Fonts by default.
+         The CSS below uses 'Caviar Dreams' as requested; add a hosted font file or a local @font-face
+         if you want exact Caviar Dreams. Fallback to system sans-serif is provided. -->
+
     <style>
         * {
             margin: 0;
@@ -15,86 +22,72 @@
             scroll-behavior: smooth;
         }
 
+        /* Body uses Caviar Dreams as requested (fallback provided) */
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Caviar Dreams', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.7;
             color: #2c2c2c;
             background: #ffffff;
             transition: background-color 0.6s ease;
         }
 
-        body.scroll-dark {
-            background: #1a1a1a;
+        /* Logo (handwriting) - white text with charcoal-style shadow */
+        header h1.logo {
+            font-family: 'Patrick Hand', 'Caviar Dreams', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+            font-size: 3.6rem;
+            font-weight: 400;
+            color: #ffffff; /* keep white as requested */
+            letter-spacing: -1px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            /* charcoal handwritten look: dark offset + soft spread */
+            text-shadow:
+              0 1px 0 rgba(0,0,0,0.85),
+              0 4px 12px rgba(0,0,0,0.55);
+            display: inline-block;
+            transition: transform 350ms cubic-bezier(.2,.8,.2,1), opacity 300ms ease;
+            margin-bottom: 1rem;
         }
 
-        body.scroll-light {
-            background: #ffffff;
-        }
-
-        body.scroll-gray {
-            background: #2d2d2d;
-        }
+        /* Keep existing visual system but add classes for transitions */
+        body.scroll-dark { background: #1a1a1a; color: #eaeaea; }
+        body.scroll-light { background: #ffffff; color: #2c2c2c; }
+        body.scroll-gray { background: #2d2d2d; color: #eaeaea; }
 
         @keyframes glow {
-            0% {
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            }
-            50% {
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 20px rgba(0, 0, 0, 0.2);
-            }
-            100% {
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            }
+            0% { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
+            50% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 20px rgba(0, 0, 0, 0.2); }
+            100% { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
         }
 
         @keyframes glow-orange {
-            0% {
-                box-shadow: 0 8px 24px rgba(255, 149, 0, 0.3), 0 0 15px rgba(255, 149, 0, 0.2);
-            }
-            50% {
-                box-shadow: 0 8px 32px rgba(255, 149, 0, 0.5), 0 0 25px rgba(255, 184, 77, 0.4);
-            }
-            100% {
-                box-shadow: 0 8px 24px rgba(255, 149, 0, 0.3), 0 0 15px rgba(255, 149, 0, 0.2);
-            }
+            0% { box-shadow: 0 8px 24px rgba(255, 149, 0, 0.3), 0 0 15px rgba(255, 149, 0, 0.2); }
+            50% { box-shadow: 0 8px 32px rgba(255, 149, 0, 0.5), 0 0 25px rgba(255, 184, 77, 0.4); }
+            100% { box-shadow: 0 8px 24px rgba(255, 149, 0, 0.3), 0 0 15px rgba(255, 149, 0, 0.2); }
         }
 
         @keyframes glow-light {
-            0% {
-                box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
-            }
-            50% {
-                box-shadow: 0 8px 32px rgba(255, 255, 255, 0.25), 0 0 20px rgba(255, 255, 255, 0.2);
-            }
-            100% {
-                box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
-            }
+            0% { box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15); }
+            50% { box-shadow: 0 8px 32px rgba(255, 255, 255, 0.25), 0 0 20px rgba(255, 255, 255, 0.2); }
+            100% { box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15); }
         }
 
+        /* Header */
         header {
             padding: 5rem 2rem;
             text-align: center;
             background: #000000;
-            background-image: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 10px,
-                rgba(255, 255, 255, 0.05) 10px,
-                rgba(255, 255, 255, 0.05) 20px
-            );
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
             border-bottom: 2px solid #000;
             position: relative;
             z-index: 10;
+            transition: background-color 300ms ease, padding 300ms ease, box-shadow 300ms ease;
         }
 
-        header h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            letter-spacing: -2px;
-            margin-bottom: 1rem;
-            color: #ffffff;
-            position: relative;
-            z-index: 2;
+        /* Shrink header when scrolled */
+        header.scrolled {
+            padding: 1.6rem 2rem;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
         }
 
         header p {
@@ -117,298 +110,84 @@
             transition: all 0.3s ease;
         }
 
-        nav.nav-scrolled {
-            padding: 1.5rem 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
+        nav.nav-scrolled { padding: 1.5rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 
-        nav a {
-            color: #aaaaaa;
-            text-decoration: none;
-            margin: 0 2rem;
-            font-size: 0.95rem;
-            font-weight: 400;
-            letter-spacing: 0.3px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+        nav a { color: #aaaaaa; text-decoration: none; margin: 0 2rem; font-size: 0.95rem; font-weight: 400; letter-spacing: 0.3px; transition: all 0.3s ease; position: relative; }
+        nav a:hover { color: #ffffff; }
+        nav a::after { content: ''; position: absolute; bottom: -8px; left: 0; right: 0; height: 2px; background: #ffffff; transform: scaleX(0); transition: transform 0.3s ease; }
+        nav a:hover::after { transform: scaleX(1); }
 
-        nav a:hover {
-            color: #ffffff;
-        }
+        main { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; transition: background-color 0.6s ease; }
+        section { margin-bottom: 3rem; background: #ffffff; padding: 3rem; border-radius: 0; border: 2px solid #d9d9d9; transition: all 0.3s ease; position: relative; }
+        section:hover { border-color: #000; }
+        section:last-of-type { margin-bottom: 0; }
+        section h2 { font-size: 2.2rem; font-weight: 300; margin-bottom: 2rem; letter-spacing: -1px; color: #000; position: relative; padding-bottom: 1rem; }
+        section h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: #000; }
+        section h3 { font-size: 1.2rem; font-weight: 400; margin-top: 2rem; margin-bottom: 1rem; color: #1a1a1a; letter-spacing: -0.5px; }
+        section p { color: #555; margin-bottom: 1.2rem; font-size: 1rem; font-weight: 300; line-height: 1.8; }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #ffffff;
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
+        #about { background: #fafafa; border: 2px solid #000; }
+        #about p { font-size: 1.1rem; line-height: 1.9; color: #333; }
+        ul { margin-left: 1.5rem; color: #555; }
+        ul li { margin-bottom: 0.8rem; font-weight: 300; }
 
-        nav a:hover::after {
-            transform: scaleX(1);
-        }
+        .code-block { background: #f5f5f5; padding: 1.5rem; border-radius: 0; overflow-x: auto; margin: 2rem 0; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9rem; color: #333; border: 2px solid #d9d9d9; border-left: 4px solid #000; }
 
-        main {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
-            transition: background-color 0.6s ease;
-        }
+        .button-group { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+        .button { padding: 1rem 2rem; border: 2px solid #000; background: #ffffff; color: #000; text-decoration: none; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.5px; transition: all 0.4s ease; cursor: pointer; border-radius: 0; position: relative; overflow: hidden; }
+        .button:hover { background: #000; color: #fff; transform: translateY(-2px); animation: glow-orange 0.6s ease infinite; }
+        .button.primary { background: #000; color: #fff; }
+        .button.primary:hover { background: #fff; color: #000; animation: glow-orange 0.6s ease infinite; }
 
-        section {
-            margin-bottom: 3rem;
-            background: #ffffff;
-            padding: 3rem;
-            border-radius: 0;
-            border: 2px solid #d9d9d9;
-            transition: all 0.3s ease;
-        }
+        footer { text-align: center; padding: 3rem 2rem; background: #000000; color: #aaaaaa; font-size: 0.9rem; border-top: 2px solid #000; font-weight: 300; letter-spacing: 0.3px; transition: background-color 0.6s ease; }
+        footer p { margin-bottom: 1rem; }
+        footer a { color: #ffffff; text-decoration: none; transition: color 0.3s; font-weight: 500; }
+        footer a:hover { color: #aaaaaa; }
 
-        section:hover {
-            border-color: #000;
-        }
+        .accent-bar { width: 40px; height: 3px; background: #000; margin: 2rem 0; }
 
-        section:last-of-type {
-            margin-bottom: 0;
-        }
+        section::before { content: ''; position: absolute; top: -8px; left: -8px; right: -8px; bottom: -8px; border: 1px solid #e0e0e0; pointer-events: none; border-radius: 0; }
+        section:hover::before { border-color: #d9d9d9; }
 
-        section h2 {
-            font-size: 2.2rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            letter-spacing: -1px;
-            color: #000;
-            position: relative;
-            padding-bottom: 1rem;
-        }
+        /* Reveal-on-scroll base state */
+        .animate-on-scroll { opacity: 0; transform: translateY(18px); transition: opacity 600ms ease-out, transform 600ms cubic-bezier(.2,.8,.2,1); will-change: opacity, transform; }
+        .animate-on-scroll.visible { opacity: 1; transform: none; }
 
-        section h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: #000;
-        }
-
-        section h3 {
-            font-size: 1.2rem;
-            font-weight: 400;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: #1a1a1a;
-            letter-spacing: -0.5px;
-        }
-
-        section p {
-            color: #555;
-            margin-bottom: 1.2rem;
-            font-size: 1rem;
-            font-weight: 300;
-            line-height: 1.8;
-        }
-
-        #about {
-            background: #fafafa;
-            border: 2px solid #000;
-        }
-
-        #about p {
-            font-size: 1.1rem;
-            line-height: 1.9;
-            color: #333;
-        }
-
-        ul {
-            margin-left: 1.5rem;
-            color: #555;
-        }
-
-        ul li {
-            margin-bottom: 0.8rem;
-            font-weight: 300;
-        }
-
-        .code-block {
-            background: #f5f5f5;
-            padding: 1.5rem;
-            border-radius: 0;
-            overflow-x: auto;
-            margin: 2rem 0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #333;
-            border: 2px solid #d9d9d9;
-            border-left: 4px solid #000;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2.5rem;
-            flex-wrap: wrap;
-        }
-
-        .button {
-            padding: 1rem 2rem;
-            border: 2px solid #000;
-            background: #ffffff;
-            color: #000;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            border-radius: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .button:hover {
-            background: #000;
-            color: #fff;
-            transform: translateY(-2px);
-            animation: glow-orange 0.6s ease infinite;
-        }
-
-        .button.primary {
-            background: #000;
-            color: #fff;
-        }
-
-        .button.primary:hover {
-            background: #fff;
-            color: #000;
-            animation: glow-orange 0.6s ease infinite;
-        }
-
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: #000000;
-            color: #aaaaaa;
-            font-size: 0.9rem;
-            border-top: 2px solid #000;
-            font-weight: 300;
-            letter-spacing: 0.3px;
-            transition: background-color 0.6s ease;
-        }
-
-        footer p {
-            margin-bottom: 1rem;
-        }
-
-        footer a {
-            color: #ffffff;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        footer a:hover {
-            color: #aaaaaa;
-        }
-
-        .accent-bar {
-            width: 40px;
-            height: 3px;
-            background: #000;
-            margin: 2rem 0;
-        }
-
-        section {
-            position: relative;
-        }
-
-        section::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            border: 1px solid #e0e0e0;
-            pointer-events: none;
-            border-radius: 0;
-        }
-
-        section:hover::before {
-            border-color: #d9d9d9;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.2rem;
-            }
-
-            header p {
-                font-size: 1rem;
-            }
-
-            nav {
-                padding: 1.5rem;
-            }
-
-            nav a {
-                display: block;
-                margin: 0.8rem 0;
-            }
-
-            main {
-                padding: 2rem 1rem;
-            }
-
-            section {
-                padding: 2rem 1.5rem;
-                margin-bottom: 2rem;
-            }
-
-            section h2 {
-                font-size: 1.6rem;
-                margin-bottom: 1.5rem;
-            }
-
-            section h2::after {
-                width: 40px;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .button {
-                width: 100%;
-                text-align: center;
-            }
+            header h1.logo { font-size: 2.2rem; }
+            header p { font-size: 1rem; }
+            nav { padding: 1.5rem; }
+            nav a { display: block; margin: 0.8rem 0; }
+            main { padding: 2rem 1rem; }
+            section { padding: 2rem 1.5rem; margin-bottom: 2rem; }
+            section h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+            section h2::after { width: 40px; }
+            .button-group { flex-direction: column; }
+            .button { width: 100%; text-align: center; }
         }
+
     </style>
 </head>
 <body>
-    <header>
-        <h1>SquigglyNote</h1>
+    <header id="site-header">
+        <h1 id="logo" class="logo">SquigglyNote</h1>
         <p>Elegant note taking for the modern mind</p>
     </header>
 
-    <nav>
+    <nav id="site-nav">
         <a href="#about">About</a>
         <a href="#features">Features</a>
         <a href="#getting-started">Getting Started</a>
-        <a href="https://github.com/Squigglypatilkar/SquigglyNote" target="_blank">GitHub</a>
+        <a href="https://github.com/Squigglypatilkar/SquigglyNote" target="_blank" rel="noopener">GitHub</a>
     </nav>
 
     <main>
-        <section id="about">
-            <p>SquigglyNote is a sophisticated note-taking application designed for those who appreciate simplicity and elegance. Capture your thoughts with intention, organize with grace, and access your ideas wherever you are.</p>
+        <section id="about" class="animate-on-scroll">
+            <p>SquigglyNote is a sophisticated note-taking application designed for those who appreciate simplicity and elegance. Capture your thoughts with intention, organize with grace, and ac[...]
         </section>
 
-        <section id="features">
+        <section id="features" class="animate-on-scroll">
             <h2>Features</h2>
             <ul>
                 <li>Refined interface engineered for distraction-free writing</li>
@@ -420,7 +199,7 @@
             </ul>
         </section>
 
-        <section id="getting-started">
+        <section id="getting-started" class="animate-on-scroll">
             <h2>Getting Started</h2>
             
             <h3>Installation</h3>
@@ -461,7 +240,7 @@ manager.save_notes()</div>
             </div>
         </section>
 
-        <section>
+        <section class="animate-on-scroll">
             <h2>Contribute</h2>
             <p>SquigglyNote is open source and welcomes contributions from the community. Whether you're enhancing features, fixing bugs, or improving documentation, your contribution matters.</p>
             
@@ -485,137 +264,61 @@ manager.save_notes()</div>
     </footer>
 
     <script>
-        // Import Python module (simulated)
-        // In a real application, you would use a Python runtime like Pyodide or Brython
-        // For this example, we're showing how to structure Python integration
-        
-        class PythonModule {
-            constructor() {
-                this.notes = [];
-            }
+        // Lightweight reveal-on-scroll + header/nav scroll state
+        document.addEventListener('DOMContentLoaded', () => {
+            // IntersectionObserver for reveal animations
+            const revealObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
 
-            createNote(title, content) {
-                const note = {
-                    id: Date.now(),
-                    title: title,
-                    content: content,
-                    created: new Date(),
-                    tags: []
-                };
-                this.notes.push(note);
-                return note;
-            }
+            document.querySelectorAll('.animate-on-scroll').forEach(el => revealObserver.observe(el));
 
-            search(keyword) {
-                return this.notes.filter(note => 
-                    note.title.includes(keyword) || note.content.includes(keyword)
-                );
-            }
+            // Header and nav scroll behavior
+            const header = document.getElementById('site-header');
+            const nav = document.getElementById('site-nav');
+            const sections = Array.from(document.querySelectorAll('main section'));
 
-            addTag(noteId, tag) {
-                const note = this.notes.find(n => n.id === noteId);
-                if (note && !note.tags.includes(tag)) {
-                    note.tags.push(tag);
+            function onScroll() {
+                const scrollY = window.scrollY;
+                // shrink header
+                if (scrollY > 40) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+                // nav compact
+                if (scrollY > 50) nav.classList.add('nav-scrolled'); else nav.classList.remove('nav-scrolled');
+
+                // find current section
+                let currentIndex = null;
+                for (let i = 0; i < sections.length; i++) {
+                    const rect = sections[i].getBoundingClientRect();
+                    if (rect.top <= window.innerHeight * 0.35 && rect.bottom >= window.innerHeight * 0.25) { currentIndex = i; break; }
                 }
-                return note;
+
+                if (scrollY < header.offsetHeight) { document.body.className = 'scroll-light'; }
+                else if (currentIndex === 0) { document.body.className = 'scroll-light'; }
+                else if (currentIndex === 1) { document.body.className = 'scroll-dark'; }
+                else if (currentIndex === 2) { document.body.className = 'scroll-gray'; }
+                else { document.body.className = 'scroll-light'; }
             }
 
-            getAllNotes() {
-                return this.notes;
-            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
 
-            deleteNote(noteId) {
-                this.notes = this.notes.filter(n => n.id !== noteId);
-            }
-
-            exportToJSON() {
-                return JSON.stringify(this.notes, null, 2);
-            }
-
-            importFromJSON(jsonData) {
-                try {
-                    this.notes = JSON.parse(jsonData);
-                    return true;
-                } catch (e) {
-                    console.error("Error importing notes:", e);
-                    return false;
-                }
-            }
-        }
-
-        // Initialize Python module
-        const squigglyNote = new PythonModule();
-
-        // Background color shift on scroll
-        const body = document.body;
-        const header = document.querySelector('header');
-        const nav = document.querySelector('nav');
-        const sections = document.querySelectorAll('section');
-
-        function updateBackgroundOnScroll() {
-            const scrollY = window.scrollY;
-            const headerHeight = header.offsetHeight;
-
-            // Add scrolled class to nav
-            if (scrollY > 50) {
-                nav.classList.add('nav-scrolled');
-            } else {
-                nav.classList.remove('nav-scrolled');
-            }
-
-            // Check which section is in view and update background
-            let currentSection = null;
-
-            sections.forEach((section, index) => {
-                const rect = section.getBoundingClientRect();
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-
-                // If section is visible in viewport
-                if (scrollY + headerHeight >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                    currentSection = index;
-                }
-            });
-
-            // Change background based on section
-            if (scrollY < headerHeight) {
-                body.className = 'scroll-light';
-            } else if (currentSection === 0) {
-                body.className = 'scroll-light';
-            } else if (currentSection === 1) {
-                body.className = 'scroll-dark';
-            } else if (currentSection === 2) {
-                body.className = 'scroll-gray';
-            } else if (currentSection === 3) {
-                body.className = 'scroll-light';
-            } else {
-                body.className = 'scroll-light';
-            }
-        }
-
-        // Listen to scroll events
-        window.addEventListener('scroll', updateBackgroundOnScroll);
-
-        // Initial call
-        updateBackgroundOnScroll();
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+            // Smooth in-page links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#' && document.querySelector(href)) {
+                        e.preventDefault();
+                        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
             });
         });
 
-        // Example usage of Python module
-        console.log("SquigglyNote Python Module Loaded");
-        // squigglyNote.createNote("Welcome", "Welcome to SquigglyNote!");
-        // console.log(squigglyNote.getAllNotes());
     </script>
 </body>
 </html>
