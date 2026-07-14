@@ -206,6 +206,40 @@
         .animate-on-scroll { opacity: 0; transform: translateY(18px); transition: opacity 600ms ease-out, transform 600ms cubic-bezier(.2,.8,.2,1); will-change: opacity, transform; }
         .animate-on-scroll.visible { opacity: 1; transform: none; }
 
+        /* Features Link Text Box */
+        .features-link-box {
+            width: 100%;
+            padding: 1.2rem;
+            margin: 2rem 0;
+            border: 2px solid #d9d9d9;
+            background: #ffffff;
+            font-family: 'Caviar Dreams', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1rem;
+            color: #555;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            cursor: text;
+            position: relative;
+            z-index: 2;
+        }
+
+        .features-link-box::placeholder {
+            color: #aaa;
+            font-weight: 300;
+        }
+
+        .features-link-box:focus {
+            outline: none;
+            border-color: #000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: #fafafa;
+        }
+
+        .features-link-box:hover:not(:focus) {
+            border-color: #000;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header h1.logo { font-size: 2.2rem; }
@@ -238,6 +272,8 @@
     <main>
         <section id="about" class="animate-on-scroll">
             <p>SquigglyNote is a sophisticated note-taking application designed for those who appreciate simplicity and elegance. Capture your thoughts with intention, organize with grace, and access your ideas wherever you are.</p>
+            
+            <input type="text" class="features-link-box" id="features-textbox" placeholder="Click here or start typing to explore our features..." />
         </section>
 
         <section id="features" class="animate-on-scroll">
@@ -370,6 +406,31 @@ manager.save_notes()</div>
                     }
                 });
             });
+
+            // Features text box linking
+            const featuresTextbox = document.getElementById('features-textbox');
+            const featuresSection = document.getElementById('features');
+
+            if (featuresTextbox && featuresSection) {
+                // Click to navigate to features
+                featuresTextbox.addEventListener('click', () => {
+                    featuresSection.scrollIntoView({ behavior: 'smooth' });
+                });
+
+                // Press Enter to navigate
+                featuresTextbox.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        featuresSection.scrollIntoView({ behavior: 'smooth' });
+                        featuresTextbox.blur();
+                    }
+                });
+
+                // Full text box functionality - allows typing and text operations
+                featuresTextbox.addEventListener('keydown', (e) => {
+                    // Allow all standard text editing operations
+                    // Ctrl+A (select all), Ctrl+C (copy), Ctrl+X (cut), Ctrl+V (paste), etc.
+                });
+            }
         });
 
     </script>
