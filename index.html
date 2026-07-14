@@ -47,6 +47,8 @@
             display: inline-block;
             transition: transform 350ms cubic-bezier(.2,.8,.2,1), opacity 300ms ease;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
         }
 
         /* Keep existing visual system but add classes for transitions */
@@ -77,11 +79,36 @@
             padding: 5rem 2rem;
             text-align: center;
             background: #000000;
-            background-image: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
             border-bottom: 2px solid #000;
             position: relative;
             z-index: 10;
             transition: background-color 300ms ease, padding 300ms ease, box-shadow 300ms ease;
+            overflow: hidden;
+        }
+
+        /* Diagonal stripe background using ::before */
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                linear-gradient(45deg, transparent 20px, rgba(255, 255, 255, 0.08) 20px, rgba(255, 255, 255, 0.08) 35px, transparent 35px),
+                linear-gradient(45deg, transparent 50px, rgba(255, 255, 255, 0.08) 50px, rgba(255, 255, 255, 0.08) 68px, transparent 68px),
+                linear-gradient(45deg, transparent 15px, rgba(255, 255, 255, 0.08) 15px, rgba(255, 255, 255, 0.08) 32px, transparent 32px),
+                linear-gradient(45deg, transparent 40px, rgba(255, 255, 255, 0.08) 40px, rgba(255, 255, 255, 0.08) 58px, transparent 58px),
+                linear-gradient(45deg, transparent 25px, rgba(255, 255, 255, 0.08) 25px, rgba(255, 255, 255, 0.08) 45px, transparent 45px),
+                linear-gradient(45deg, transparent 60px, rgba(255, 255, 255, 0.08) 60px, rgba(255, 255, 255, 0.08) 80px, transparent 80px),
+                linear-gradient(45deg, transparent 30px, rgba(255, 255, 255, 0.08) 30px, rgba(255, 255, 255, 0.08) 50px, transparent 50px),
+                linear-gradient(45deg, transparent 45px, rgba(255, 255, 255, 0.08) 45px, rgba(255, 255, 255, 0.08) 65px, transparent 65px),
+                linear-gradient(45deg, transparent 35px, rgba(255, 255, 255, 0.08) 35px, rgba(255, 255, 255, 0.08) 52px, transparent 52px);
+            background-repeat: repeat;
+            background-size: 100px 100px, 150px 150px, 80px 80px, 130px 130px, 110px 110px, 170px 170px, 95px 95px, 145px 145px, 120px 120px;
+            background-position: 0 0, 10px 20px, 20px 10px, 5px 15px, 15px 25px, 25px 5px, 10px 30px, 30px 10px, 20px 20px;
+            pointer-events: none;
+            z-index: 1;
         }
 
         /* Shrink header when scrolled */
@@ -184,7 +211,7 @@
 
     <main>
         <section id="about" class="animate-on-scroll">
-            <p>SquigglyNote is a sophisticated note-taking application designed for those who appreciate simplicity and elegance. Capture your thoughts with intention, organize with grace, and ac[...]
+            <p>SquigglyNote is a sophisticated note-taking application designed for those who appreciate simplicity and elegance. Capture your thoughts with intention, organize with grace, and access your ideas wherever you are.</p>
         </section>
 
         <section id="features" class="animate-on-scroll">
