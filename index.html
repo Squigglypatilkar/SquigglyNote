@@ -75,6 +75,13 @@
             padding: 5rem 2rem;
             text-align: center;
             background: #000000;
+            background-image: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
             border-bottom: 2px solid #000;
             position: relative;
             z-index: 10;
@@ -86,6 +93,8 @@
             letter-spacing: -2px;
             margin-bottom: 1rem;
             color: #ffffff;
+            position: relative;
+            z-index: 2;
         }
 
         header p {
@@ -93,6 +102,8 @@
             color: #cccccc;
             font-weight: 300;
             letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
         }
 
         nav {
