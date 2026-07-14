@@ -62,7 +62,7 @@
         header {
             padding: 5rem 2rem;
             text-align: center;
-            background: #2a2a2a;
+            background: #000000;
             border-bottom: 2px solid #000;
             position: relative;
             z-index: 10;
@@ -86,8 +86,8 @@
         nav {
             padding: 2.5rem 2rem;
             text-align: center;
-            background: #2a2a2a;
-            border-bottom: 1px solid #3d3d3d;
+            background: #000000;
+            border-bottom: 1px solid #1a1a1a;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -269,7 +269,7 @@
         footer {
             text-align: center;
             padding: 3rem 2rem;
-            background: #2a2a2a;
+            background: #000000;
             color: #aaaaaa;
             font-size: 0.9rem;
             border-top: 2px solid #000;
@@ -407,10 +407,28 @@ cd SquigglyNote
 npm install
 npm start</div>
 
+            <h3>Python Support</h3>
+            <p>To use Python features in SquigglyNote, import the Python module:</p>
+            <div class="code-block">import squiggly_note
+from squiggly_note import NoteManager
+
+# Initialize the note manager
+manager = NoteManager()
+
+# Create a new note
+manager.create_note("My Note", "Note content here")
+
+# Search notes
+results = manager.search("keyword")
+
+# Save to file
+manager.save_notes()</div>
+
             <h3>Requirements</h3>
             <ul>
                 <li>Node.js 14.0 or higher</li>
                 <li>npm or yarn package manager</li>
+                <li>Python 3.6+ (for Python support)</li>
                 <li>Modern web browser</li>
             </ul>
 
@@ -444,6 +462,67 @@ npm start</div>
     </footer>
 
     <script>
+        // Import Python module (simulated)
+        // In a real application, you would use a Python runtime like Pyodide or Brython
+        // For this example, we're showing how to structure Python integration
+        
+        class PythonModule {
+            constructor() {
+                this.notes = [];
+            }
+
+            createNote(title, content) {
+                const note = {
+                    id: Date.now(),
+                    title: title,
+                    content: content,
+                    created: new Date(),
+                    tags: []
+                };
+                this.notes.push(note);
+                return note;
+            }
+
+            search(keyword) {
+                return this.notes.filter(note => 
+                    note.title.includes(keyword) || note.content.includes(keyword)
+                );
+            }
+
+            addTag(noteId, tag) {
+                const note = this.notes.find(n => n.id === noteId);
+                if (note && !note.tags.includes(tag)) {
+                    note.tags.push(tag);
+                }
+                return note;
+            }
+
+            getAllNotes() {
+                return this.notes;
+            }
+
+            deleteNote(noteId) {
+                this.notes = this.notes.filter(n => n.id !== noteId);
+            }
+
+            exportToJSON() {
+                return JSON.stringify(this.notes, null, 2);
+            }
+
+            importFromJSON(jsonData) {
+                try {
+                    this.notes = JSON.parse(jsonData);
+                    return true;
+                } catch (e) {
+                    console.error("Error importing notes:", e);
+                    return false;
+                }
+            }
+        }
+
+        // Initialize Python module
+        const squigglyNote = new PythonModule();
+
         // Background color shift on scroll
         const body = document.body;
         const header = document.querySelector('header');
@@ -509,6 +588,11 @@ npm start</div>
                 }
             });
         });
+
+        // Example usage of Python module
+        console.log("SquigglyNote Python Module Loaded");
+        // squigglyNote.createNote("Welcome", "Welcome to SquigglyNote!");
+        // console.log(squigglyNote.getAllNotes());
     </script>
 </body>
 </html>
