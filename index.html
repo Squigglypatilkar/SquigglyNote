@@ -1,7 +1,7 @@
 <html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Squiggly Note is a simple place for everyday thoughts.">
+  <meta name="description" content="Squiggly Note is a simple place for everyday thoughts that aren't real yet.">
   <title>Squiggly Note</title>
   <style>
     :root { --ink:#202124; --muted:#6b6f76; --paper:#fffefa; --line:#e9e7df; --accent:#7158d8; --wash:#f7f6f1; }
@@ -38,14 +38,14 @@
   </header>
   <main>
     <section class="container hero" id="home">
-      <div><p class="eyebrow">A quiet place for ideas</p><h1>Notes, without the noise.</h1><p class="intro">Squiggly Note makes space for the thoughts you want to keep: quick reminders, messy beginnings, and everything in between.</p><div class="hero-actions"><a class="button" href="#start">Try the note</a><a class="button light" href="#about">Learn more</a></div></div>
+      <div><p class="eyebrow">A quiet place for ideas</p><h1>Notes, reimagined.</h1><p class="intro">Squiggly Note makes space for the thoughts you want to keep: quick reminders, messy beginnings, and everything in between.</p><div class="hero-actions"><a class="button" href="#start">Try the note</a><a class="button light" href="#about">Learn more</a></div></div>
       <aside class="note-preview"><div class="preview-content"><span class="mini-label">Today</span><h2>A small thought</h2><p>Leave room for the good ideas that arrive without an invitation.</p></div></aside>
     </section>
     <section class="container" id="features"><div class="section-heading"><h2>Built for the everyday.</h2><p>Only the essentials, with enough flexibility to make the page useful whenever inspiration shows up.</p></div><div class="features"><article class="feature"><span class="feature-number">01</span><h3>Write freely</h3><p>A clean space for lists, fragments, and longer thoughts.</p></article><article class="feature"><span class="feature-number">02</span><h3>Stay focused</h3><p>No dashboard overload. Just one thing at a time.</p></article><article class="feature"><span class="feature-number">03</span><h3>Keep it close</h3><p>Your note is saved in your browser as you type.</p></article></div></section>
     <section class="container" id="start"><div class="workspace"><p class="eyebrow">Your note</p><h2 contenteditable="true" id="noteTitle">Untitled note</h2><p contenteditable="true" id="noteBody">Today I want to remember that tiny progress still counts. Especially the kind that happens with tea nearby.</p><button class="button" id="newNote">New blank note</button></div></section>
     <section class="container about" id="about"><div><p class="eyebrow">About us</p><h2>Made for people who think on paper.</h2></div><div><p>Squiggly Note is a small independent project built around a simple belief: your notes should feel calm, personal, and easy to return to. It is a home for loose thoughts before they become plans.</p><p>We are keeping it intentionally simple, so the important part is always your next idea.</p></div></section>
   </main>
-  <footer class="container"><span>Squiggly Note</span><span>Made for little sparks of thought.</span></footer>
+  <footer class="container"><span>Squiggly Note</span><span>By Ethan, Robert, Atreya, Ryan, and Joshua</span></footer>
   <script>
     const title=document.querySelector('#noteTitle'), body=document.querySelector('#noteBody');
     title.textContent=localStorage.getItem('squiggly-title')||title.textContent;
