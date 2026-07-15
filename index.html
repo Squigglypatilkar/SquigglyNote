@@ -13,48 +13,313 @@
     header { display:flex; align-items:center; justify-content:space-between; padding:24px 0; }
     .brand { color:var(--ink); font-size:1.08rem; font-weight:750; letter-spacing:-.04em; text-decoration:none; }
     nav { display:flex; gap:22px; align-items:center; } nav a { color:var(--muted); font-size:.92rem; text-decoration:none; } nav a:hover { color:var(--ink); }
-    .button { display:inline-flex; align-items:center; justify-content:center; border:0; border-radius:8px; padding:11px 16px; background:var(--ink); color:#fff; cursor:pointer; font:600 .9rem inherit; text-decoration:none; }
+    .button { display:inline-flex; align-items:center; justify-content:center; border:0; border-radius:8px; padding:11px 16px; background:var(--ink); color:#fff; cursor:pointer; font:600 .9rem inherit; }
     .button:hover { background:#414246; } .button.light { background:transparent; color:var(--ink); border:1px solid #d8d6cf; }
     .hero { display:grid; grid-template-columns:1.05fr .95fr; gap:70px; align-items:center; padding:90px 0 100px; }
     .eyebrow { margin:0 0 15px; color:var(--accent); font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
     h1 { max-width:620px; margin:0; font-size:clamp(3rem,6vw,5.7rem); letter-spacing:-.075em; line-height:.93; }
     .intro { max-width:470px; margin:25px 0 28px; color:var(--muted); font-size:1.06rem; line-height:1.7; }
     .hero-actions { display:flex; flex-wrap:wrap; gap:10px; }
-    .note-preview { position:relative; min-height:360px; padding:34px; overflow:hidden; border:1px solid var(--line); border-radius:14px; background:var(--paper); box-shadow:0 20px 50px rgba(35,35,28,.08); transform:rotate(2deg); }
+    .note-preview { position:relative; min-height:360px; padding:34px; overflow:hidden; border:1px solid var(--line); border-radius:14px; background:var(--paper); box-shadow:0 20px 50px rgba(35,35,35,.08); }
     .note-preview::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom,transparent 0,transparent 37px,#efede6 38px,transparent 39px); opacity:.85; pointer-events:none; }
     .preview-content { position:relative; z-index:1; } .mini-label { color:var(--muted); font-size:.76rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
     .note-preview h2 { margin:31px 0 14px; font:700 2rem/1.15 Georgia,serif; } .note-preview p { max-width:290px; color:#56575b; font:1.08rem/1.65 Georgia,serif; }
-    section { padding:88px 0; } .section-heading { max-width:590px; margin-bottom:36px; } .section-heading h2 { margin:0; font-size:clamp(2rem,4vw,3.3rem); letter-spacing:-.06em; } .section-heading p { color:var(--muted); line-height:1.7; }
+    section { padding:88px 0; } .section-heading { max-width:590px; margin-bottom:36px; } .section-heading h2 { margin:0; font-size:clamp(2rem,4vw,3.3rem); letter-spacing:-.06em; } .section-heading p { margin:12px 0 0; color:var(--muted); }
     .features { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; } .feature { min-height:185px; padding:25px; border:1px solid var(--line); border-radius:12px; background:#fff; }
-    .feature-number { display:block; margin-bottom:30px; color:var(--accent); font-size:.8rem; font-weight:700; } .feature h3 { margin:0 0 9px; font-size:1rem; } .feature p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.6; }
-    .workspace { padding:56px; border-radius:16px; background:#252529; color:#fff; } .workspace p { max-width:560px; color:#bfc0c4; line-height:1.7; } .workspace .button { margin-top:8px; background:#fff; color:#252529; }
+    .feature-number { display:block; margin-bottom:30px; color:var(--accent); font-size:.8rem; font-weight:700; } .feature h3 { margin:0 0 9px; font-size:1rem; } .feature p { margin:0; color:var(--muted); font-size:.93rem; line-height:1.65; }
+    .workspace { padding:56px; border-radius:16px; background:#252529; color:#fff; } .workspace p { max-width:560px; color:#bfc0c4; line-height:1.7; } .workspace .button { margin-top:8px; background:var(--accent); }
     .about { display:grid; grid-template-columns:1fr 1fr; gap:70px; border-top:1px solid var(--line); } .about p { max-width:460px; color:var(--muted); line-height:1.8; }
     footer { display:flex; justify-content:space-between; gap:20px; padding:28px 0 38px; color:var(--muted); border-top:1px solid var(--line); font-size:.85rem; }
-    @media (max-width:760px) { .container { width:min(100% - 28px,1040px); } nav a { display:none; } .hero,.about { grid-template-columns:1fr; gap:38px; } .hero { padding:58px 0 70px; } .note-preview { min-height:290px; transform:none; } .features { grid-template-columns:1fr; } section { padding:65px 0; } .workspace { padding:32px 25px; } footer { flex-direction:column; } }
+    
+    /* NEW: Note Editor and Tabs */
+    .editor-section { display:none; padding:88px 0; }
+    .editor-section.active { display:block; }
+    .editor-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+    .editor-back { background:transparent; color:var(--ink); border:1px solid var(--line); padding:8px 12px; }
+    .editor-back:hover { background:var(--wash); }
+    .editor-workspace { padding:40px; border-radius:16px; background:var(--paper); border:1px solid var(--line); }
+    .editor-title { font-size:2rem; font-weight:700; margin:0 0 8px; border:none; outline:none; color:var(--ink); width:100%; }
+    .editor-summary { margin:16px 0; padding:12px 16px; border:1px solid var(--line); border-radius:8px; font-size:.9rem; width:100%; font-family:inherit; resize:vertical; min-height:60px; }
+    .editor-body { min-height:320px; padding:0; border:none; outline:none; color:var(--ink); width:100%; font-family:Georgia,serif; font-size:1.08rem; line-height:1.65; resize:vertical; }
+    .editor-controls { display:flex; gap:12px; margin-top:20px; align-items:center; }
+    .mic-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:8px; border:1px solid var(--line); background:#fff; cursor:pointer; font-size:1.2rem; transition:all .2s; }
+    .mic-btn:hover { background:var(--wash); border-color:var(--accent); }
+    .mic-btn.recording { background:var(--accent); border-color:var(--accent); animation:pulse 1s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.6; } }
+    .recording-indicator { display:none; color:var(--accent); font-size:.85rem; font-weight:700; align-items:center; gap:6px; }
+    .recording-indicator.active { display:flex; }
+    .recording-dot { width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse .5s infinite; }
+    .save-status { margin-left:auto; color:var(--muted); font-size:.85rem; }
+    
+    /* Tabs Grid */
+    .tabs-section { padding:88px 0; }
+    .tabs-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+    .tabs-header h2 { margin:0; font-size:1.8rem; font-weight:700; }
+    .new-tab-btn { background:var(--accent); color:#fff; }
+    .new-tab-btn:hover { background:#5e47b3; }
+    .tabs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px; }
+    .tab-card { position:relative; min-height:160px; padding:20px; border-radius:16px; background:linear-gradient(135deg,var(--paper),#f9f8f3); border:1px solid var(--line); cursor:pointer; transition:all .2s; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+    .tab-card:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.08); border-color:var(--accent); }
+    .tab-icon { width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,var(--accent),#a47dd8); display:flex; align-items:center; justify-content:center; font-size:1.5rem; color:#fff; margin-bottom:12px; }
+    .tab-title { font-weight:700; font-size:.95rem; margin:0 0 6px; color:var(--ink); word-break:break-word; }
+    .tab-summary { font-size:.8rem; color:var(--muted); margin:0; line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .tab-delete { position:absolute; top:8px; right:8px; background:transparent; border:none; color:var(--muted); cursor:pointer; font-size:1.2rem; padding:4px; display:none; }
+    .tab-card:hover .tab-delete { display:block; }
+    .tab-delete:hover { color:var(--ink); }
+    
+    @media (max-width:760px) { 
+      .container { width:min(100% - 28px,1040px); } 
+      nav a { display:none; } 
+      .hero,.about { grid-template-columns:1fr; gap:38px; } 
+      .hero { padding:58px 0 70px; } 
+      .note-preview { min-height:280px; padding:20px; }
+      .features { grid-template-columns:1fr; }
+      .tabs-grid { grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); }
+      .editor-workspace { padding:24px; }
+    }
   </style>
 </head>
 <body>
   <header class="container">
     <a class="brand" href="#home">Squiggly Note</a>
-    <nav><a href="#features">Features</a><a href="#about">About</a><a class="button light" href="#start">Start writing</a></nav>
+    <nav><a href="#features">Features</a><a href="#about">About</a><a class="button light" href="#tabs">My Notes</a></nav>
   </header>
   <main>
     <section class="container hero" id="home">
-      <div><p class="eyebrow">A quiet place for ideas</p><h1>Notes, without the noise.</h1><p class="intro">Squiggly Note makes space for the thoughts you want to keep: quick reminders, messy beginnings, and everything in between.</p><div class="hero-actions"><a class="button" href="#start">Try the note</a><a class="button light" href="#about">Learn more</a></div></div>
-      <aside class="note-preview"><div class="preview-content"><span class="mini-label">Today</span><h2>A small thought</h2><p>Leave room for the good ideas that arrive without an invitation.</p></div></aside>
+      <div><p class="eyebrow">A quiet place for ideas</p><h1>Notes, without the noise.</h1><p class="intro">Squiggly Note makes space for the thoughts you want to keep: quick reminders, messy beginnings, and those midnight epiphanies.</p><div class="hero-actions"><a class="button" href="#tabs">View my notes</a><a class="button light" href="#editor">Create new</a></div></div>
+      <aside class="note-preview"><div class="preview-content"><span class="mini-label">Today</span><h2>A small thought</h2><p>Leave room for the good ideas that arrive without an invitation.</p><span class="mini-label" style="margin-top:40px;">Keep writing</span></div></aside>
     </section>
-    <section class="container" id="features"><div class="section-heading"><h2>Built for the everyday.</h2><p>Only the essentials, with enough flexibility to make the page useful whenever inspiration shows up.</p></div><div class="features"><article class="feature"><span class="feature-number">01</span><h3>Write freely</h3><p>A clean space for lists, fragments, and longer thoughts.</p></article><article class="feature"><span class="feature-number">02</span><h3>Stay focused</h3><p>No dashboard overload. Just one thing at a time.</p></article><article class="feature"><span class="feature-number">03</span><h3>Keep it close</h3><p>Your note is saved in your browser as you type.</p></article></div></section>
-    <section class="container" id="start"><div class="workspace"><p class="eyebrow">Your note</p><h2 contenteditable="true" id="noteTitle">A little note to myself</h2><p contenteditable="true" id="noteBody">Today I want to remember that tiny progress still counts. Especially the kind that happens with tea nearby.</p><button class="button" id="newNote">New blank note</button></div></section>
-    <section class="container about" id="about"><div><p class="eyebrow">About us</p><h2>Made for people who think on paper.</h2></div><div><p>Squiggly Note is a small independent project built around a simple belief: your notes should feel calm, personal, and easy to return to. It is a home for loose thoughts before they become plans.</p><p>We are keeping it intentionally simple, so the important part is always your next idea.</p></div></section>
+    <section class="container" id="features"><div class="section-heading"><h2>Built for the everyday.</h2><p>Only the essentials, with enough flexibility to make the page useful whenever inspiration strikes.</p></div><div class="features"><div class="feature"><span class="feature-number">01</span><h3>Quick captures</h3><p>Save your thoughts instantly and organize them how you like.</p></div><div class="feature"><span class="feature-number">02</span><h3>Audio notes</h3><p>Record your voice when you're on the move or multitasking.</p></div><div class="feature"><span class="feature-number">03</span><h3>Local storage</h3><p>All your notes stay private and saved in your browser.</p></div></div></section>
+    
+    <!-- Editor Section -->
+    <section class="container editor-section" id="editor">
+      <div class="editor-header">
+        <button class="button editor-back" onclick="goToTabs()">← Back to notes</button>
+        <div class="save-status" id="saveStatus"></div>
+      </div>
+      <div class="editor-workspace">
+        <input type="text" class="editor-title" id="editorTitle" placeholder="Untitled note" maxlength="60">
+        <textarea class="editor-summary" id="editorSummary" placeholder="Short summary (optional)..."></textarea>
+        <textarea class="editor-body" id="editorBody" placeholder="Your note..."></textarea>
+        <div class="editor-controls">
+          <button class="mic-btn" id="micBtn" title="Record audio note">🎤</button>
+          <div class="recording-indicator" id="recordingIndicator">
+            <span class="recording-dot"></span>
+            <span>Recording...</span>
+          </div>
+          <button class="button" onclick="saveCurrentNote()">Save note</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Tabs Section -->
+    <section class="container tabs-section" id="tabs">
+      <div class="tabs-header">
+        <h2>Your notes</h2>
+        <button class="button new-tab-btn" onclick="createNewNote()">+ New note</button>
+      </div>
+      <div class="tabs-grid" id="tabsGrid">
+        <!-- Notes will be inserted here -->
+      </div>
+    </section>
+    
+    <section class="container about" id="about"><div><p class="eyebrow">About us</p><h2>Made for people who think on paper.</h2></div><div><p>Squiggly Note is a small independent project built around the idea that good thinking takes room to stretch out. Not every thought needs formatting, reactions, or context. Some ideas just need a quiet place to exist.</p></div></section>
   </main>
   <footer class="container"><span>Squiggly Note</span><span>Made for little sparks of thought.</span></footer>
+  
   <script>
-    const title=document.querySelector('#noteTitle'), body=document.querySelector('#noteBody');
-    title.textContent=localStorage.getItem('squiggly-title')||title.textContent;
-    body.textContent=localStorage.getItem('squiggly-body')||body.textContent;
-    function save(){localStorage.setItem('squiggly-title',title.textContent);localStorage.setItem('squiggly-body',body.textContent);}
-    title.addEventListener('input',save); body.addEventListener('input',save);
-    document.querySelector('#newNote').addEventListener('click',()=>{title.textContent='Untitled note';body.textContent='';body.focus();save();});
+    let currentNoteId = null;
+    let mediaRecorder = null;
+    let audioChunks = [];
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTabs();
+      setupMicButton();
+      setupAutoSave();
+    });
+    
+    // Get all notes from localStorage
+    function getAllNotes() {
+      const notes = localStorage.getItem('squiggly-notes');
+      return notes ? JSON.parse(notes) : {};
+    }
+    
+    // Save all notes to localStorage
+    function saveAllNotes(notes) {
+      localStorage.setItem('squiggly-notes', JSON.stringify(notes));
+    }
+    
+    // Create new note
+    function createNewNote() {
+      const noteId = Date.now().toString();
+      const notes = getAllNotes();
+      notes[noteId] = {
+        id: noteId,
+        title: 'Untitled note',
+        summary: '',
+        body: '',
+        createdAt: new Date().toISOString(),
+        audioUrl: null
+      };
+      saveAllNotes(notes);
+      editNote(noteId);
+    }
+    
+    // Edit existing note
+    function editNote(noteId) {
+      currentNoteId = noteId;
+      const notes = getAllNotes();
+      const note = notes[noteId];
+      
+      document.getElementById('editorTitle').value = note.title;
+      document.getElementById('editorSummary').value = note.summary || '';
+      document.getElementById('editorBody').value = note.body || '';
+      
+      // Show editor, hide tabs and home
+      document.querySelectorAll('.editor-section, .hero').forEach(el => el.classList.remove('active'));
+      document.getElementById('editor').classList.add('active');
+      document.querySelector('.hero').style.display = 'none';
+      
+      window.scrollTo(0, 0);
+    }
+    
+    // Save current note
+    function saveCurrentNote() {
+      if (!currentNoteId) return;
+      
+      const notes = getAllNotes();
+      notes[currentNoteId].title = document.getElementById('editorTitle').value || 'Untitled note';
+      notes[currentNoteId].summary = document.getElementById('editorSummary').value;
+      notes[currentNoteId].body = document.getElementById('editorBody').value;
+      
+      saveAllNotes(notes);
+      showSaveStatus('Note saved!');
+    }
+    
+    // Auto-save every 1 second while editing
+    function setupAutoSave() {
+      setInterval(() => {
+        if (currentNoteId && document.getElementById('editor').classList.contains('active')) {
+          saveCurrentNote();
+        }
+      }, 1000);
+    }
+    
+    // Show save status
+    function showSaveStatus(message) {
+      const status = document.getElementById('saveStatus');
+      status.textContent = message;
+      setTimeout(() => { status.textContent = ''; }, 2000);
+    }
+    
+    // Go back to tabs
+    function goToTabs() {
+      if (currentNoteId) {
+        saveCurrentNote();
+      }
+      currentNoteId = null;
+      document.getElementById('editor').classList.remove('active');
+      document.querySelector('.hero').style.display = 'grid';
+      renderTabs();
+      document.getElementById('tabs').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Render tabs grid
+    function renderTabs() {
+      const notes = getAllNotes();
+      const tabsGrid = document.getElementById('tabsGrid');
+      tabsGrid.innerHTML = '';
+      
+      if (Object.keys(notes).length === 0) {
+        tabsGrid.innerHTML = '<p style="grid-column: 1/-1; color: var(--muted); text-align: center; padding: 40px 20px;">No notes yet. Create one to get started!</p>';
+        return;
+      }
+      
+      Object.values(notes).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(note => {
+        const icons = ['📝', '💡', '✨', '🎯', '🚀', '🌟', '📚', '🔥', '⚡', '🎨'];
+        const iconIndex = note.id.charCodeAt(0) % icons.length;
+        
+        const card = document.createElement('div');
+        card.className = 'tab-card';
+        card.innerHTML = `
+          <div>
+            <div class="tab-icon">${icons[iconIndex]}</div>
+            <h3 class="tab-title">${escapeHtml(note.title)}</h3>
+            <p class="tab-summary">${escapeHtml(note.summary || note.body.substring(0, 50))}</p>
+          </div>
+          <button class="tab-delete" onclick="deleteNote('${note.id}', event)">✕</button>
+        `;
+        card.onclick = () => editNote(note.id);
+        tabsGrid.appendChild(card);
+      });
+    }
+    
+    // Delete note
+    function deleteNote(noteId, event) {
+      event.stopPropagation();
+      if (confirm('Delete this note?')) {
+        const notes = getAllNotes();
+        delete notes[noteId];
+        saveAllNotes(notes);
+        renderTabs();
+      }
+    }
+    
+    // Setup microphone recording
+    function setupMicButton() {
+      const micBtn = document.getElementById('micBtn');
+      
+      micBtn.onclick = async (e) => {
+        e.preventDefault();
+        
+        if (!mediaRecorder) {
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+            
+            mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+            mediaRecorder.onstop = () => {
+              const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+              const audioUrl = URL.createObjectURL(audioBlob);
+              
+              const notes = getAllNotes();
+              if (currentNoteId) {
+                notes[currentNoteId].audioUrl = audioUrl;
+                saveAllNotes(notes);
+                showSaveStatus('Audio saved!');
+              }
+              
+              // Add audio player to note
+              const audioContainer = document.createElement('div');
+              audioContainer.style.marginTop = '16px';
+              audioContainer.innerHTML = `<audio controls style="width: 100%; max-width: 300px;"><source src="${audioUrl}" type="audio/webm"></audio>`;
+              document.getElementById('editorBody').parentElement.appendChild(audioContainer);
+              
+              mediaRecorder = null;
+            };
+            
+            mediaRecorder.start();
+            micBtn.classList.add('recording');
+            document.getElementById('recordingIndicator').classList.add('active');
+          } catch (err) {
+            alert('Microphone access denied. Please allow microphone access to record notes.');
+          }
+        } else {
+          mediaRecorder.stop();
+          micBtn.classList.remove('recording');
+          document.getElementById('recordingIndicator').classList.remove('active');
+        }
+      };
+    }
+    
+    // Escape HTML to prevent XSS
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
   </script>
 </body>
 </html>
