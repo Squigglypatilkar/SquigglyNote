@@ -6,55 +6,65 @@
   <meta name="description" content="Squiggly Note is a simple place for everyday thoughts.">
   <title>Squiggly Note</title>
   <style>
-    :root { --ink:#000000; --muted:#666666; --paper:#000000; --line:#333333; --accent:#000000; --wash:#ffffff; }
+    :root { --ink:#ffffff; --muted:#b0b0b0; --paper:#1a1a1a; --line:#333333; --accent:#7158d8; --wash:#0d0d0d; }
     * { box-sizing:border-box; } html { scroll-behavior:smooth; }
     body { margin:0; background:var(--wash); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
     .container { width:min(1040px,calc(100% - 40px)); margin:auto; }
     header { display:flex; align-items:center; justify-content:space-between; padding:24px 0; }
     .brand { color:var(--ink); font-size:1.08rem; font-weight:750; letter-spacing:-.04em; text-decoration:none; }
-    nav { display:flex; gap:22px; align-items:center; } nav a { color:var(--ink); font-size:.92rem; text-decoration:none; } nav a:hover { text-shadow:0 0 10px rgba(0,0,0,.4); }
-    .button { display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:8px; padding:11px 16px; background:var(--accent); color:#fff; cursor:pointer; font:600 .9rem; transition:all .2s; }
-    .button:hover { text-shadow:0 0 10px rgba(0,0,0,.4); box-shadow:0 0 20px rgba(0,0,0,.2); } .button.light { background:transparent; color:var(--ink); border:1px solid var(--ink); }
-    .button.light:hover { text-shadow:0 0 10px rgba(0,0,0,.4); box-shadow:0 0 20px rgba(0,0,0,.1); }
+    nav { display:flex; gap:22px; align-items:center; } nav a { color:var(--ink); font-size:.92rem; text-decoration:none; } nav a:hover { text-shadow:0 0 10px rgba(113,88,216,.6); }
+    .button { display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:8px; padding:11px 16px; background:var(--accent); color:#fff; cursor:pointer; font:600 .9rem inherit; }
+    .button:hover { text-shadow:0 0 10px rgba(113,88,216,.8); box-shadow:0 0 20px rgba(113,88,216,.4); } .button.light { background:transparent; color:var(--ink); }
+    .button.light:hover { text-shadow:0 0 10px rgba(113,88,216,.8); box-shadow:0 0 20px rgba(113,88,216,.3); }
     .hero { display:grid; grid-template-columns:1.05fr .95fr; gap:70px; align-items:center; padding:90px 0 100px; }
     .eyebrow { margin:0 0 15px; color:var(--ink); font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
-    h1 { max-width:620px; margin:0; font-size:clamp(3rem,6vw,5.7rem); letter-spacing:-.075em; line-height:.93; color:var(--ink); }
+    h1 { max-width:620px; margin:0; font-size:clamp(3rem,6vw,5.7rem); letter-spacing:-.075em; line-height:.93; }
     .intro { max-width:470px; margin:25px 0 28px; color:var(--muted); font-size:1.06rem; line-height:1.7; }
     .hero-actions { display:flex; flex-wrap:wrap; gap:10px; }
-    .note-preview { position:relative; min-height:360px; padding:34px; overflow:hidden; border-radius:14px; background:var(--paper); box-shadow:0 0 30px rgba(0,0,0,.2); border:1px solid #333; }
-    .note-preview::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom,transparent 0,transparent 37px,#222 38px,transparent 39px); opacity:.15; pointer-events:none; }
+    .note-preview { position:relative; min-height:360px; padding:34px; overflow:hidden; border-radius:14px; background:var(--paper); box-shadow:0 0 30px rgba(113,88,216,.2); }
+    .note-preview::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom,transparent 0,transparent 37px,#222 38px,transparent 39px); opacity:.85; pointer-events:none; }
     .preview-content { position:relative; z-index:1; } .mini-label { color:var(--muted); font-size:.76rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-    .note-preview h2 { margin:31px 0 14px; font:700 2rem/1.15 Georgia,serif; color:#fff; } .note-preview p { max-width:290px; color:#ccc; font:1.08rem/1.65 Georgia,serif; }
-    section { padding:88px 0; } .section-heading { max-width:590px; margin-bottom:36px; } .section-heading h2 { margin:0; font-size:clamp(2rem,4vw,3.3rem); letter-spacing:-.06em; color:var(--ink); } .section-heading p { margin:12px 0 0; color:var(--muted); line-height:1.6; }
-    #features { background:#000; } #features .section-heading h2 { color:#fff; } #features .section-heading p { color:#999; }
-    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; } .feature { min-height:185px; padding:25px; border-radius:12px; background:#111; border:1px solid #333; }
-    .feature-number { display:block; margin-bottom:30px; color:#fff; font-size:.8rem; font-weight:700; } .feature h3 { margin:0 0 9px; font-size:1rem; color:#fff; } .feature p { margin:0; color:#999; font-size:.9rem; line-height:1.6; }
-    .workspace { padding:56px; border-radius:16px; background:#000; color:#fff; border:1px solid #333; } .workspace p { max-width:560px; color:var(--muted); line-height:1.7; } .workspace .button { margin-top:8px; background:#000; border:1px solid #333; color:#fff; }
+    .note-preview h2 { margin:31px 0 14px; font:700 2rem/1.15 Georgia,serif; color:var(--ink); } .note-preview p { max-width:290px; color:var(--muted); font:1.08rem/1.65 Georgia,serif; }
+    section { padding:88px 0; } .section-heading { max-width:590px; margin-bottom:36px; } .section-heading h2 { margin:0; font-size:clamp(2rem,4vw,3.3rem); letter-spacing:-.06em; } .section-heading p { margin:12px 0 0; color:var(--muted); }
+    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; } .feature { min-height:185px; padding:25px; border-radius:12px; background:#111; }
+    .feature-number { display:block; margin-bottom:30px; color:var(--ink); font-size:.8rem; font-weight:700; } .feature h3 { margin:0 0 9px; font-size:1rem; color:var(--ink); } .feature p { margin:0; color:var(--muted); font-size:.93rem; line-height:1.65; }
+    .workspace { padding:56px; border-radius:16px; background:#111; color:#fff; } .workspace p { max-width:560px; color:var(--muted); line-height:1.7; } .workspace .button { margin-top:8px; background:var(--accent); }
     .about { display:grid; grid-template-columns:1fr 1fr; gap:70px; } .about h2 { color:var(--ink); } .about p { max-width:460px; color:var(--muted); line-height:1.8; }
     footer { display:flex; justify-content:space-between; gap:20px; padding:28px 0 38px; color:var(--muted); font-size:.85rem; }
     
+    /* Color coding */
+    .color-1 { background:linear-gradient(135deg,#FF6B6B,#FF5252); }
+    .color-2 { background:linear-gradient(135deg,#4ECDC4,#45B7AA); }
+    .color-3 { background:linear-gradient(135deg,#FFD93D,#FFC93C); }
+    .color-4 { background:linear-gradient(135deg,#A8E6CF,#56AB2F); }
+    .color-5 { background:linear-gradient(135deg,#FF8B94,#FF6B9D); }
+    .color-6 { background:linear-gradient(135deg,#C7CEEA,#B5D3E1); }
+    .color-7 { background:linear-gradient(135deg,#FF9FF3,#FF9999); }
+    .color-8 { background:linear-gradient(135deg,#A1D9FF,#6FA3FF); }
+    
     /* NEW: Note Editor and Tabs */
-    .editor-section { display:none; padding:88px 0; }
+    .editor-section { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:var(--wash); overflow-y:auto; z-index:100; }
     .editor-section.active { display:block; }
+    .editor-container { padding:40px 0; }
     .editor-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
-    .editor-back { background:transparent; color:var(--ink); border:1px solid #333; padding:8px 12px; }
-    .editor-back:hover { text-shadow:0 0 10px rgba(0,0,0,.4); box-shadow:0 0 20px rgba(0,0,0,.2); }
-    .editor-workspace { padding:40px; border-radius:16px; background:var(--paper); border:1px solid #333; }
-    .editor-title { font-size:2rem; font-weight:700; margin:0 0 8px; border:none; outline:none; color:#fff; width:100%; background:transparent; }
+    .editor-back { background:transparent; color:var(--ink); border:none; padding:8px 12px; cursor:pointer; }
+    .editor-back:hover { text-shadow:0 0 10px rgba(113,88,216,.8); box-shadow:0 0 20px rgba(113,88,216,.3); }
+    .editor-workspace { padding:40px; border-radius:16px; background:var(--paper); }
+    .editor-title { font-size:2rem; font-weight:700; margin:0 0 8px; border:none; outline:none; color:var(--ink); width:100%; background:transparent; }
     .editor-title::placeholder { color:var(--muted); }
-    .editor-summary { margin:16px 0; padding:12px 16px; border:1px solid #333; border-radius:8px; font-size:.9rem; width:100%; font-family:inherit; resize:vertical; min-height:60px; background:#111; color:#fff; }
+    .editor-summary { margin:16px 0; padding:12px 16px; border:none; border-radius:8px; font-size:.9rem; width:100%; font-family:inherit; resize:vertical; min-height:60px; background:#0d0d0d; color:var(--ink); }
     .editor-summary::placeholder { color:var(--muted); }
-    .editor-summary:focus { outline:none; box-shadow:0 0 15px rgba(0,0,0,.3); }
-    .editor-body { min-height:320px; padding:12px 0; border:none; outline:none; color:#fff; width:100%; font-family:Georgia,serif; font-size:1.08rem; line-height:1.65; resize:vertical; background:transparent; border-bottom:1px solid #333; padding-bottom:20px; }
+    .editor-summary:focus { outline:none; box-shadow:0 0 15px rgba(113,88,216,.3); }
+    .editor-body { min-height:320px; padding:0; border:none; outline:none; color:var(--ink); width:100%; font-family:Georgia,serif; font-size:1.08rem; line-height:1.65; resize:vertical; background:transparent; }
     .editor-body::placeholder { color:var(--muted); }
     .editor-controls { display:flex; gap:12px; margin-top:20px; align-items:center; flex-wrap:wrap; }
-    .mic-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:8px; border:1px solid #333; background:transparent; cursor:pointer; font-size:1.2rem; transition:all .2s; }
-    .mic-btn:hover { box-shadow:0 0 15px rgba(0,0,0,.3); }
-    .mic-btn.recording { animation:pulse 1s infinite; box-shadow:0 0 25px rgba(0,0,0,.4); }
+    .mic-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:8px; border:none; background:transparent; cursor:pointer; font-size:1.2rem; transition:all .2s; color:var(--ink); }
+    .mic-btn:hover { box-shadow:0 0 15px rgba(113,88,216,.4); }
+    .mic-btn.recording { animation:pulse 1s infinite; box-shadow:0 0 25px rgba(113,88,216,.6); }
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.6; } }
-    .recording-indicator { display:none; color:#fff; font-size:.85rem; font-weight:700; align-items:center; gap:6px; }
+    .recording-indicator { display:none; color:var(--ink); font-size:.85rem; font-weight:700; align-items:center; gap:6px; }
     .recording-indicator.active { display:flex; }
-    .recording-dot { width:8px; height:8px; border-radius:50%; background:#fff; animation:pulse .5s infinite; }
+    .recording-dot { width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse .5s infinite; }
     .save-status { margin-left:auto; color:var(--muted); font-size:.85rem; }
     
     /* Audio controls */
@@ -64,18 +74,26 @@
     /* Tabs Grid */
     .tabs-section { padding:88px 0; }
     .tabs-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
-    .tabs-header h2 { margin:0; font-size:1.8rem; font-weight:700; color:var(--ink); }
-    .new-tab-btn { background:var(--accent); color:#fff; border:none; }
-    .new-tab-btn:hover { box-shadow:0 0 20px rgba(0,0,0,.3); }
+    .tabs-header h2 { margin:0; font-size:1.8rem; font-weight:700; }
+    .new-tab-btn { background:var(--accent); color:#fff; }
+    .new-tab-btn:hover { box-shadow:0 0 20px rgba(113,88,216,.4); }
     .tabs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px; }
-    .tab-card { position:relative; min-height:160px; padding:20px; border-radius:16px; background:#000; border:1px solid #333; cursor:pointer; transition:all .2s; display:flex; flex-direction:column; }
-    .tab-card:hover { transform:translateY(-2px); box-shadow:0 0 25px rgba(0,0,0,.3); border-color:#666; }
-    .tab-icon { width:48px; height:48px; border-radius:12px; background:#222; display:flex; align-items:center; justify-content:center; font-size:1.5rem; color:#fff; }
-    .tab-title { font-weight:700; font-size:.95rem; margin:0 0 6px; color:#fff; word-break:break-word; }
+    .tab-card { position:relative; min-height:160px; padding:20px; padding-top:28px; border-radius:16px; background:linear-gradient(135deg,#222,#1a1a1a); border:none; cursor:pointer; transition:all .2s; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 0 15px rgba(0,0,0,.5); overflow:hidden; }
+    .tab-card::before { content:""; position:absolute; top:0; left:0; right:0; height:8px; background:linear-gradient(135deg,#FF6B6B,#FF5252); }
+    .tab-card.color-2::before { background:linear-gradient(135deg,#4ECDC4,#45B7AA); }
+    .tab-card.color-3::before { background:linear-gradient(135deg,#FFD93D,#FFC93C); }
+    .tab-card.color-4::before { background:linear-gradient(135deg,#A8E6CF,#56AB2F); }
+    .tab-card.color-5::before { background:linear-gradient(135deg,#FF8B94,#FF6B9D); }
+    .tab-card.color-6::before { background:linear-gradient(135deg,#C7CEEA,#B5D3E1); }
+    .tab-card.color-7::before { background:linear-gradient(135deg,#FF9FF3,#FF9999); }
+    .tab-card.color-8::before { background:linear-gradient(135deg,#A1D9FF,#6FA3FF); }
+    .tab-card:hover { transform:translateY(-2px); box-shadow:0 0 25px rgba(113,88,216,.4); }
+    .tab-content { position:relative; z-index:1; }
+    .tab-title { font-weight:700; font-size:.95rem; margin:0 0 6px; color:var(--ink); word-break:break-word; }
     .tab-summary { font-size:.8rem; color:var(--muted); margin:0; line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-    .tab-delete { position:absolute; top:8px; right:8px; background:transparent; border:none; color:var(--muted); cursor:pointer; font-size:1.2rem; padding:4px; display:none; }
+    .tab-delete { position:absolute; top:8px; right:8px; background:transparent; border:none; color:var(--muted); cursor:pointer; font-size:1.2rem; padding:4px; display:none; z-index:2; }
     .tab-card:hover .tab-delete { display:block; }
-    .tab-delete:hover { color:#fff; }
+    .tab-delete:hover { color:var(--ink); }
     
     @media (max-width:760px) { 
       .container { width:min(100% - 28px,1040px); } 
@@ -96,30 +114,32 @@
   </header>
   <main>
     <section class="container hero" id="home">
-      <div><p class="eyebrow">A quiet place for ideas</p><h1>Notes, without the noise.</h1><p class="intro">Squiggly Note makes space for the thoughts you want to keep: quick reminders, messy beginnings, and moments you want to revisit.</p><div class="hero-actions"><button class="button" onclick="document.getElementById('tabs').scrollIntoView({behavior:'smooth'})">Start noting</button></div></div>
-      <aside class="note-preview"><div class="preview-content"><span class="mini-label">Today</span><h2>A small thought</h2><p>Leave room for the good ideas that arrive without an invitation.</p><span class="mini-label" style="margin-top:20px; display:block;">— Generative artist</span></div></aside>
+      <div><p class="eyebrow">A quiet place for ideas</p><h1>Notes, without the noise.</h1><p class="intro">Squiggly Note makes space for the thoughts you want to keep: quick reminders, messy beginnings, and those midnight epiphanies.</p><div class="hero-actions"><a class="button" href="#tabs">View my notes</a><a class="button light" href="#editor">Create new</a></div></div>
+      <aside class="note-preview"><div class="preview-content"><span class="mini-label">Today</span><h2>A small thought</h2><p>Leave room for the good ideas that arrive without an invitation.</p><span class="mini-label" style="margin-top:40px;">Keep writing</span></div></aside>
     </section>
-    <section id="features"><div class="container"><div class="section-heading"><h2>Built for the everyday.</h2><p>Only the essentials, with enough flexibility to make the page useful whenever inspiration strikes.</p></div><div class="features"><div class="feature"><span class="feature-number">1</span><h3>Just notes</h3><p>Clean, distraction-free writing. No tagging, no databases, no overwhelming features.</p></div><div class="feature"><span class="feature-number">2</span><h3>Stays private</h3><p>Your notes live locally in your browser. We don't store or access anything you write.</p></div><div class="feature"><span class="feature-number">3</span><h3>Simple & quick</h3><p>Open, write, save. Works offline. No signup, no sign-in, no waiting around.</p></div></div></div></section>
+    <section class="container" id="features"><div class="section-heading"><h2>Built for the everyday.</h2><p>Only the essentials, with enough flexibility to make the page useful whenever inspiration strikes.</p></div><div class="features"><div class="feature"><span class="feature-number">01</span><h3>Quick captures</h3><p>Save your thoughts instantly and organize them how you like.</p></div><div class="feature"><span class="feature-number">02</span><h3>Audio notes</h3><p>Record your voice when you're on the move or multitasking.</p></div><div class="feature"><span class="feature-number">03</span><h3>Local storage</h3><p>All your notes stay private and saved in your browser.</p></div></div></section>
     
     <!-- Editor Section -->
-    <section class="container editor-section" id="editor">
-      <div class="editor-header">
-        <button class="button editor-back" onclick="goToTabs()">← Back to notes</button>
-        <div class="save-status" id="saveStatus"></div>
-      </div>
-      <div class="editor-workspace">
-        <input type="text" class="editor-title" id="editorTitle" placeholder="Untitled note" maxlength="60">
-        <textarea class="editor-summary" id="editorSummary" placeholder="Short summary (optional)..."></textarea>
-        <textarea class="editor-body" id="editorBody" placeholder="Your note..."></textarea>
-        <div class="editor-controls">
-          <button class="mic-btn" id="micBtn" title="Record audio note">🎤</button>
-          <div class="recording-indicator" id="recordingIndicator">
-            <span class="recording-dot"></span>
-            <span>Recording...</span>
-          </div>
-          <button class="button" onclick="saveAndCloseNote()">Save note</button>
+    <section class="editor-section" id="editor">
+      <div class="container editor-container">
+        <div class="editor-header">
+          <button class="button editor-back" onclick="goToTabs()">← Back to notes</button>
+          <div class="save-status" id="saveStatus"></div>
         </div>
-        <div class="audio-container" id="audioContainer"></div>
+        <div class="editor-workspace">
+          <input type="text" class="editor-title" id="editorTitle" placeholder="Untitled note" maxlength="60">
+          <textarea class="editor-summary" id="editorSummary" placeholder="Short summary (optional)..."></textarea>
+          <textarea class="editor-body" id="editorBody" placeholder="Your note..."></textarea>
+          <div class="editor-controls">
+            <button class="mic-btn" id="micBtn" title="Record audio note">🎤</button>
+            <div class="recording-indicator" id="recordingIndicator">
+              <span class="recording-dot"></span>
+              <span>Recording...</span>
+            </div>
+            <button class="button" onclick="saveAndClose()">Save note</button>
+          </div>
+          <div class="audio-container" id="audioContainer"></div>
+        </div>
       </div>
     </section>
     
@@ -134,7 +154,7 @@
       </div>
     </section>
     
-    <section class="container about" id="about"><div><p class="eyebrow">About us</p><h2>Made for people who think on paper.</h2></div><div><p>Squiggly Note is a small independent project built around the belief that the best ideas come when there's space to think. It started as a simple note-taking tool and has grown into a quiet corner of the internet dedicated to capturing ideas exactly as they come to you.</p></div></section>
+    <section class="container about" id="about"><div><p class="eyebrow">About us</p><h2>Made for people who think on paper.</h2></div><div><p>Squiggly Note is a small independent project built around the idea that good thinking takes room to stretch out. Not every thought needs formatting, reactions, or context. Some ideas just need a quiet place to exist.</p></div></section>
   </main>
   <footer class="container"><span>Squiggly Note</span><span>Made for little sparks of thought.</span></footer>
   
@@ -143,6 +163,8 @@
     let mediaRecorder = null;
     let audioChunks = [];
     let recordingStream = null;
+    
+    const colors = ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6', 'color-7', 'color-8'];
     
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
@@ -160,6 +182,11 @@
     // Save all notes to localStorage
     function saveAllNotes(notes) {
       localStorage.setItem('squiggly-notes', JSON.stringify(notes));
+    }
+    
+    // Get color for note
+    function getNoteColor(noteId) {
+      return colors[noteId.charCodeAt(0) % colors.length];
     }
     
     // Create new note
@@ -198,12 +225,9 @@
         audioContainer.appendChild(audio);
       }
       
-      // Show editor, hide tabs and home
-      document.querySelectorAll('.editor-section, .hero').forEach(el => el.classList.remove('active'));
+      // Show editor
       document.getElementById('editor').classList.add('active');
-      document.querySelector('.hero').style.display = 'none';
-      
-      window.scrollTo(0, 0);
+      document.body.style.overflow = 'hidden';
     }
     
     // Save current note
@@ -219,8 +243,8 @@
       showSaveStatus('Note saved!');
     }
     
-    // Save and close note
-    function saveAndCloseNote() {
+    // Save and close editor
+    function saveAndClose() {
       saveCurrentNote();
       setTimeout(() => {
         goToTabs();
@@ -250,9 +274,8 @@
       }
       currentNoteId = null;
       document.getElementById('editor').classList.remove('active');
-      document.querySelector('.hero').style.display = 'grid';
+      document.body.style.overflow = 'auto';
       renderTabs();
-      document.getElementById('tabs').scrollIntoView({ behavior: 'smooth' });
     }
     
     // Render tabs grid
@@ -267,14 +290,12 @@
       }
       
       Object.values(notes).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(note => {
-        const icons = ['📝', '💡', '✨', '🎯', '🚀', '🌟', '📚', '🔥', '⚡'];
-        const iconIndex = note.id.charCodeAt(0) % icons.length;
+        const colorClass = getNoteColor(note.id);
         
         const card = document.createElement('div');
-        card.className = 'tab-card';
+        card.className = `tab-card ${colorClass}`;
         card.innerHTML = `
-          <div style="cursor: pointer; flex: 1;" onclick="editNote('${escapeHtml(note.id)}')">
-            <div class="tab-icon">${icons[iconIndex]}</div>
+          <div class="tab-content" onclick="editNote('${escapeHtml(note.id)}')">
             <h3 class="tab-title">${escapeHtml(note.title)}</h3>
             <p class="tab-summary">${escapeHtml(note.summary || note.body.substring(0, 50) || '(empty note)')}</p>
           </div>
