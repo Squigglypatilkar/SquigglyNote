@@ -1,116 +1,60 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SquigglyNote</title>
-
-  <!-- Handwriting font for the logo -->
-  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-
-  <!-- External stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Squiggly Note is a simple place for everyday thoughts.">
+  <title>Squiggly Note</title>
+  <style>
+    :root { --ink:#202124; --muted:#6b6f76; --paper:#fffefa; --line:#e9e7df; --accent:#7158d8; --wash:#f7f6f1; }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--wash); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .container { width:min(1040px,calc(100% - 40px)); margin:auto; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:24px 0; }
+    .brand { color:var(--ink); font-size:1.08rem; font-weight:750; letter-spacing:-.04em; text-decoration:none; }
+    nav { display:flex; gap:22px; align-items:center; } nav a { color:var(--muted); font-size:.92rem; text-decoration:none; } nav a:hover { color:var(--ink); }
+    .button { display:inline-flex; align-items:center; justify-content:center; border:0; border-radius:8px; padding:11px 16px; background:var(--ink); color:#fff; cursor:pointer; font:600 .9rem inherit; text-decoration:none; }
+    .button:hover { background:#414246; } .button.light { background:transparent; color:var(--ink); border:1px solid #d8d6cf; }
+    .hero { display:grid; grid-template-columns:1.05fr .95fr; gap:70px; align-items:center; padding:90px 0 100px; }
+    .eyebrow { margin:0 0 15px; color:var(--accent); font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+    h1 { max-width:620px; margin:0; font-size:clamp(3rem,6vw,5.7rem); letter-spacing:-.075em; line-height:.93; }
+    .intro { max-width:470px; margin:25px 0 28px; color:var(--muted); font-size:1.06rem; line-height:1.7; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; }
+    .note-preview { position:relative; min-height:360px; padding:34px; overflow:hidden; border:1px solid var(--line); border-radius:14px; background:var(--paper); box-shadow:0 20px 50px rgba(35,35,28,.08); transform:rotate(2deg); }
+    .note-preview::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom,transparent 0,transparent 37px,#efede6 38px,transparent 39px); opacity:.85; pointer-events:none; }
+    .preview-content { position:relative; z-index:1; } .mini-label { color:var(--muted); font-size:.76rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .note-preview h2 { margin:31px 0 14px; font:700 2rem/1.15 Georgia,serif; } .note-preview p { max-width:290px; color:#56575b; font:1.08rem/1.65 Georgia,serif; }
+    section { padding:88px 0; } .section-heading { max-width:590px; margin-bottom:36px; } .section-heading h2 { margin:0; font-size:clamp(2rem,4vw,3.3rem); letter-spacing:-.06em; } .section-heading p { color:var(--muted); line-height:1.7; }
+    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; } .feature { min-height:185px; padding:25px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+    .feature-number { display:block; margin-bottom:30px; color:var(--accent); font-size:.8rem; font-weight:700; } .feature h3 { margin:0 0 9px; font-size:1rem; } .feature p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.6; }
+    .workspace { padding:56px; border-radius:16px; background:#252529; color:#fff; } .workspace p { max-width:560px; color:#bfc0c4; line-height:1.7; } .workspace .button { margin-top:8px; background:#fff; color:#252529; }
+    .about { display:grid; grid-template-columns:1fr 1fr; gap:70px; border-top:1px solid var(--line); } .about p { max-width:460px; color:var(--muted); line-height:1.8; }
+    footer { display:flex; justify-content:space-between; gap:20px; padding:28px 0 38px; color:var(--muted); border-top:1px solid var(--line); font-size:.85rem; }
+    @media (max-width:760px) { .container { width:min(100% - 28px,1040px); } nav a { display:none; } .hero,.about { grid-template-columns:1fr; gap:38px; } .hero { padding:58px 0 70px; } .note-preview { min-height:290px; transform:none; } .features { grid-template-columns:1fr; } section { padding:65px 0; } .workspace { padding:32px 25px; } footer { flex-direction:column; } }
+  </style>
 </head>
 <body>
-  <!-- decorative side panels (always black with subtle gray icons) -->
-  <div class="page-side page-side-left" aria-hidden="true"></div>
-  <div class="page-side page-side-right" aria-hidden="true"></div>
-
-  <header id="site-header">
-    <h1 id="logo" class="logo">SquigglyNote</h1>
-    <p>Elegant note taking for the modern mind</p>
+  <header class="container">
+    <a class="brand" href="#home">Squiggly Note</a>
+    <nav><a href="#features">Features</a><a href="#about">About</a><a class="button light" href="#start">Start writing</a></nav>
   </header>
-
-  <nav id="site-nav">
-    <a href="#about">About</a>
-    <a href="#features">Features</a>
-    <a href="#getting-started">Getting Started</a>
-    <a href="https://github.com/Squigglypatilkar/SquigglyNote" target="_blank" rel="noopener">GitHub</a>
-  </nav>
-
   <main>
-    <section id="about" class="animate-on-scroll">
-      <p>SquigglyNote is a sophisticated note-taking application designed for those who appreciate simplicity and elegance. Capture your thoughts with intention, organize with grace, and ac[...]</p>
-
-      <input type="text" class="features-link-box" id="features-textbox" placeholder="Press Enter to jump to Features (typing won't auto-scroll)" />
+    <section class="container hero" id="home">
+      <div><p class="eyebrow">A quiet place for ideas</p><h1>Notes, without the noise.</h1><p class="intro">Squiggly Note makes space for the thoughts you want to keep: quick reminders, messy beginnings, and everything in between.</p><div class="hero-actions"><a class="button" href="#start">Try the note</a><a class="button light" href="#about">Learn more</a></div></div>
+      <aside class="note-preview"><div class="preview-content"><span class="mini-label">Today</span><h2>A small thought</h2><p>Leave room for the good ideas that arrive without an invitation.</p></div></aside>
     </section>
-
-    <section id="features" class="animate-on-scroll">
-      <h2>Features</h2>
-      <ul>
-        <li>Refined interface engineered for distraction-free writing</li>
-        <li>Intelligent organization with tags and folders</li>
-        <li>Advanced search and filtering capabilities</li>
-        <li>Seamless synchronization across all your devices</li>
-        <li>Beautiful, minimalist writing environment</li>
-        <li>Privacy-first approach to your personal notes</li>
-      </ul>
-    </section>
-
-    <section id="getting-started" class="animate-on-scroll">
-      <h2>Getting Started</h2>
-
-      <h3>Installation</h3>
-      <p>Clone the repository and follow these simple steps:</p>
-      <div class="code-block">git clone https://github.com/Squigglypatilkar/SquigglyNote.git
-cd SquigglyNote
-npm install
-npm start</div>
-
-      <h3>Python Support</h3>
-      <p>To use Python features in SquigglyNote, import the Python module:</p>
-      <div class="code-block">import squiggly_note
-from squiggly_note import NoteManager
-
-# Initialize the note manager
-manager = NoteManager()
-
-# Create a new note
-manager.create_note("My Note", "Note content here")
-
-# Search notes
-results = manager.search("keyword")
-
-# Save to file
-manager.save_notes()</div>
-
-      <h3>Requirements</h3>
-      <ul>
-        <li>Node.js 14.0 or higher</li>
-        <li>npm or yarn package manager</li>
-        <li>Python 3.6+ (for Python support)</li>
-        <li>Modern web browser</li>
-      </ul>
-
-      <div class="button-group">
-        <a href="https://github.com/Squigglypatilkar/SquigglyNote" class="button primary">View on GitHub</a>
-        <a href="https://github.com/Squigglypatilkar/SquigglyNote/issues" class="button">Report Issue</a>
-      </div>
-    </section>
-
-    <section class="animate-on-scroll">
-      <h2>Contribute</h2>
-      <p>SquigglyNote is open source and welcomes contributions from the community. Whether you're enhancing features, fixing bugs, or improving documentation, your contribution matters.</p>
-
-      <h3>How to Contribute</h3>
-      <ul>
-        <li>Fork the repository</li>
-        <li>Create a feature branch for your work</li>
-        <li>Commit your changes with clear messages</li>
-        <li>Push your branch and open a pull request</li>
-      </ul>
-
-      <div class="button-group">
-        <a href="https://github.com/Squigglypatilkar/SquigglyNote/fork" class="button">Fork Repository</a>
-      </div>
-    </section>
+    <section class="container" id="features"><div class="section-heading"><h2>Built for the everyday.</h2><p>Only the essentials, with enough flexibility to make the page useful whenever inspiration shows up.</p></div><div class="features"><article class="feature"><span class="feature-number">01</span><h3>Write freely</h3><p>A clean space for lists, fragments, and longer thoughts.</p></article><article class="feature"><span class="feature-number">02</span><h3>Stay focused</h3><p>No dashboard overload. Just one thing at a time.</p></article><article class="feature"><span class="feature-number">03</span><h3>Keep it close</h3><p>Your note is saved in your browser as you type.</p></article></div></section>
+    <section class="container" id="start"><div class="workspace"><p class="eyebrow">Your note</p><h2 contenteditable="true" id="noteTitle">A little note to myself</h2><p contenteditable="true" id="noteBody">Today I want to remember that tiny progress still counts. Especially the kind that happens with tea nearby.</p><button class="button" id="newNote">New blank note</button></div></section>
+    <section class="container about" id="about"><div><p class="eyebrow">About us</p><h2>Made for people who think on paper.</h2></div><div><p>Squiggly Note is a small independent project built around a simple belief: your notes should feel calm, personal, and easy to return to. It is a home for loose thoughts before they become plans.</p><p>We are keeping it intentionally simple, so the important part is always your next idea.</p></div></section>
   </main>
-
-  <footer>
-    <p>&copy; 2024 SquigglyNote. Crafted with intention.</p>
-    <p><a href="https://github.com/Squigglypatilkar">GitHub Profile</a> • <a href="https://github.com/Squigglypatilkar/SquigglyNote">Repository</a></p>
-  </footer>
-
-  <script src="scroll-animations.js"></script>
+  <footer class="container"><span>Squiggly Note</span><span>Made for little sparks of thought.</span></footer>
+  <script>
+    const title=document.querySelector('#noteTitle'), body=document.querySelector('#noteBody');
+    title.textContent=localStorage.getItem('squiggly-title')||title.textContent;
+    body.textContent=localStorage.getItem('squiggly-body')||body.textContent;
+    function save(){localStorage.setItem('squiggly-title',title.textContent);localStorage.setItem('squiggly-body',body.textContent);}
+    title.addEventListener('input',save); body.addEventListener('input',save);
+    document.querySelector('#newNote').addEventListener('click',()=>{title.textContent='Untitled note';body.textContent='';body.focus();save();});
+  </script>
 </body>
 </html>
